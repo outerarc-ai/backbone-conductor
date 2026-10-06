@@ -1,8 +1,8 @@
 # Backbone Conductor：基于 Git 的意图与决策协作工具
 
 [![CI](https://github.com/outerarc-ai/backbone-conductor/actions/workflows/ci.yml/badge.svg)](https://github.com/outerarc-ai/backbone-conductor/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/backbone-conductor.svg)](https://pypi.org/project/backbone-conductor/)
-[![Python](https://img.shields.io/pypi/pyversions/backbone-conductor.svg)](https://pypi.org/project/backbone-conductor/)
+[![PyPI](https://img.shields.io/pypi/v/backbone-conductor.svg?cacheSeconds=3600)](https://pypi.org/project/backbone-conductor/)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://pypi.org/project/backbone-conductor/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 [English](README.md) · [文档](docs/README.md) · [参与贡献](CONTRIBUTING.md) · [更新记录](CHANGELOG.md)
