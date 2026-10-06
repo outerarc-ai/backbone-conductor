@@ -1,0 +1,857 @@
+{
+  "schema_version": 1,
+  "provenance": "Synthetic scenarios authored from the documented deterministic rules; not production observations.",
+  "label_definition": "Each expected finding specifies exact rule, severity, and unordered party IDs. An empty list labels a negative scenario.",
+  "scenarios": [
+    {
+      "id": "shared-payment-api",
+      "description": "Both members modify the PaymentService API.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentService"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentService"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "symbol_scope_overlap",
+          "severity": "advisory",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "remove-checkout-extension",
+      "description": "Removing CheckoutHook invalidates an extension of the same hook.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "CheckoutHook": "remove"
+          }
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "CheckoutHook": "extend"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "rule": "replace_vs_extend",
+          "severity": "critical",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "replace-tax-extension",
+      "description": "Replacing TaxCalculator collides with extending its interface.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "TaxCalculator": "replace"
+          }
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "TaxCalculator": "extend"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "rule": "replace_vs_extend",
+          "severity": "blocking",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reverse-removal-direction",
+      "description": "The remover sorts after the extender; detection is symmetric.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "PaymentService": "extend"
+          }
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "PaymentService": "remove"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "rule": "replace_vs_extend",
+          "severity": "critical",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "duplicate-symbol-declarations",
+      "description": "Duplicate declarations produce one finding.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentService",
+            "PaymentService"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentService"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "symbol_scope_overlap",
+          "severity": "advisory",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-services",
+      "description": "Payment and search work have disjoint declared symbols.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentService"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "SearchService"
+          ]
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "remove-unrelated-interface",
+      "description": "Removing the legacy hook does not affect a different extension point.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "LegacyHook": "remove"
+          }
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "CheckoutHook": "extend"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "completed-intent",
+      "description": "A completed removal no longer competes with active extension work.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "CheckoutHook": "remove"
+          },
+          "status": "completed"
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "operations": {
+            "CheckoutHook": "extend"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "superseded-intent",
+      "description": "A superseded plan is excluded from symbol findings.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentService"
+          ],
+          "status": "superseded"
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentService"
+          ]
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "rejected-intent",
+      "description": "A rejected change is excluded from file-scope findings.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/"
+          ],
+          "status": "rejected"
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/service.py"
+          ]
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "decision-depends-on-removed-api",
+      "description": "A planned checkout depends on a service another decision removes.",
+      "decisions": [
+        {
+          "id": "decision-a",
+          "author": "decision-a",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "depends_on": [
+            "PaymentProvider"
+          ]
+        },
+        {
+          "id": "decision-b",
+          "author": "decision-b",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "removes_symbols": [
+            "PaymentProvider"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "dependency_conflict",
+          "severity": "blocking",
+          "parties": [
+            "decision-a",
+            "decision-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reverse-decision-dependency",
+      "description": "Dependency detection also works when the remover sorts first.",
+      "decisions": [
+        {
+          "id": "decision-a",
+          "author": "decision-a",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "removes_symbols": [
+            "PaymentProvider"
+          ]
+        },
+        {
+          "id": "decision-b",
+          "author": "decision-b",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "depends_on": [
+            "PaymentProvider"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "dependency_conflict",
+          "severity": "blocking",
+          "parties": [
+            "decision-a",
+            "decision-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mutual-decision-dependencies",
+      "description": "Two opposing removals are represented by one decision-pair finding.",
+      "decisions": [
+        {
+          "id": "decision-a",
+          "author": "decision-a",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "depends_on": [
+            "ProviderV2"
+          ],
+          "removes_symbols": [
+            "ProviderV1"
+          ]
+        },
+        {
+          "id": "decision-b",
+          "author": "decision-b",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "depends_on": [
+            "ProviderV1"
+          ],
+          "removes_symbols": [
+            "ProviderV2"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "dependency_conflict",
+          "severity": "blocking",
+          "parties": [
+            "decision-a",
+            "decision-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reverted-removal-decision",
+      "description": "A reverted removal cannot invalidate an active dependency.",
+      "decisions": [
+        {
+          "id": "decision-a",
+          "author": "decision-a",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "depends_on": [
+            "PaymentProvider"
+          ]
+        },
+        {
+          "id": "decision-b",
+          "author": "decision-b",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "removes_symbols": [
+            "PaymentProvider"
+          ],
+          "status": "reverted"
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "superseded-dependent-decision",
+      "description": "A retired dependent no longer blocks an active removal.",
+      "decisions": [
+        {
+          "id": "decision-a",
+          "author": "decision-a",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "depends_on": [
+            "PaymentProvider"
+          ],
+          "status": "superseded"
+        },
+        {
+          "id": "decision-b",
+          "author": "decision-b",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "removes_symbols": [
+            "PaymentProvider"
+          ]
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "same-decision-topic-no-dependency",
+      "description": "Sharing a topic is not enough to infer a decision dependency.",
+      "decisions": [
+        {
+          "id": "decision-a",
+          "author": "decision-a",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentProvider"
+          ]
+        },
+        {
+          "id": "decision-b",
+          "author": "decision-b",
+          "decision_type": "api_design",
+          "summary": "Evolve the payment interface",
+          "rationale": "Meet the checkout requirements",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_symbols": [
+            "PaymentProvider"
+          ]
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "same-source-file",
+      "description": "Two active intents modify the same source file.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/service.py"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/service.py"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "resource_contention",
+          "severity": "blocking",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "directory-and-contained-file",
+      "description": "A declared directory overlaps an intent modifying a contained file.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/service.py"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "resource_contention",
+          "severity": "blocking",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "directory-without-trailing-slash",
+      "description": "Directory scope comparison recognizes complete path segments.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/providers/stripe.py"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "resource_contention",
+          "severity": "blocking",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "similar-directory-prefixes",
+      "description": "payments and payments_v2 are separate path segments.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments_v2/service.py"
+          ]
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "sibling-files",
+      "description": "Different files in the same parent directory do not overlap.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/service.py"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/models.py"
+          ]
+        }
+      ],
+      "expected": []
+    },
+    {
+      "id": "normalized-file-paths",
+      "description": "Equivalent relative path spellings are treated as one scope.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "./src//payments/service.py"
+          ]
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z",
+          "affected_paths": [
+            "src/payments/service.py"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "rule": "resource_contention",
+          "severity": "blocking",
+          "parties": [
+            "intent-a",
+            "intent-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "artifact-reveals-shared-file",
+      "description": "Submitted artifacts expose a collision absent from declared intent scopes.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z"
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "task-a",
+          "member_id": "alice",
+          "intent_id": "intent-a",
+          "created_at": "2026-09-16T00:00:00Z",
+          "artifact": {
+            "id": "artifact-alice",
+            "member_id": "alice",
+            "intent_id": "intent-a",
+            "branch": "work/alice",
+            "summary": "Update checkout implementation",
+            "created_at": "2026-09-16T00:00:00Z",
+            "changed_paths": [
+              "src/payments/service.py"
+            ]
+          }
+        },
+        {
+          "id": "task-b",
+          "member_id": "bob",
+          "intent_id": "intent-b",
+          "created_at": "2026-09-16T00:00:00Z",
+          "artifact": {
+            "id": "artifact-bob",
+            "member_id": "bob",
+            "intent_id": "intent-b",
+            "branch": "work/bob",
+            "summary": "Update checkout implementation",
+            "created_at": "2026-09-16T00:00:00Z",
+            "changed_paths": [
+              "src/payments/service.py"
+            ]
+          }
+        }
+      ],
+      "expected": [
+        {
+          "rule": "resource_contention",
+          "severity": "blocking",
+          "parties": [
+            "task-a",
+            "task-b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "merged-artifact-excluded",
+      "description": "A merged task does not compete with a new task modifying the same file.",
+      "intents": [
+        {
+          "id": "intent-a",
+          "author": "intent-a",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z"
+        },
+        {
+          "id": "intent-b",
+          "author": "intent-b",
+          "problem": "Coordinate changes to payment checkout",
+          "proposed_outcome": "Compatible behavior for all active work",
+          "created_at": "2026-09-16T00:00:00Z"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "task-a",
+          "member_id": "alice",
+          "intent_id": "intent-a",
+          "created_at": "2026-09-16T00:00:00Z",
+          "status": "merged",
+          "artifact": {
+            "id": "artifact-alice",
+            "member_id": "alice",
+            "intent_id": "intent-a",
+            "branch": "work/alice",
+            "summary": "Update checkout implementation",
+            "created_at": "2026-09-16T00:00:00Z",
+            "changed_paths": [
+              "src/payments/service.py"
+            ]
+          }
+        },
+        {
+          "id": "task-b",
+          "member_id": "bob",
+          "intent_id": "intent-b",
+          "created_at": "2026-09-16T00:00:00Z",
+          "artifact": {
+            "id": "artifact-bob",
+            "member_id": "bob",
+            "intent_id": "intent-b",
+            "branch": "work/bob",
+            "summary": "Update checkout implementation",
+            "created_at": "2026-09-16T00:00:00Z",
+            "changed_paths": [
+              "src/payments/service.py"
+            ]
+          }
+        }
+      ],
+      "expected": []
+    }
+  ]
+}

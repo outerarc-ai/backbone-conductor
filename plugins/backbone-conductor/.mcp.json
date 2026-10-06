@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "backbone": {
+      "command": "python3",
+      "args": ["scripts/launch_mcp.py"],
+      "cwd": ".",
+      "env_vars": [
+        "BACKBONE_REPO",
+        "BACKBONE_MEMBER",
+        "BACKBONE_CODEX_ROLE",
+        "BACKBONE_MCP_URL",
+        "BACKBONE_TOKEN_FILE",
+        "BACKBONE_MCP_CA_FILE",
+        "BACKBONE_LEDGER_BRANCH",
+        "BACKBONE_EXECUTABLE"
+      ]
+    }
+  }
+}

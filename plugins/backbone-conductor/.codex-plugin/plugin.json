@@ -1,0 +1,29 @@
+{
+  "name": "backbone-conductor",
+  "version": "0.1.0",
+  "description": "Coordinate coding work through Git-backed intentions, decisions, tasks, and review evidence.",
+  "author": {
+    "name": "OuterArc AI",
+    "url": "https://github.com/outerarc-ai"
+  },
+  "homepage": "https://github.com/outerarc-ai/backbone-conductor",
+  "repository": "https://github.com/outerarc-ai/backbone-conductor",
+  "license": "MIT",
+  "keywords": ["coding-agents", "intentions", "decisions", "git", "mcp"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Backbone Conductor",
+    "shortDescription": "Track an intent from proposal through reviewed Git integration.",
+    "longDescription": "Connect Codex to a Git-backed coordination ledger. Members can read assignments, propose intentions and decisions, check changes, and submit pinned commits. Coordinators can prepare work; human reviewers retain approval authority.",
+    "developerName": "OuterArc AI",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/outerarc-ai/backbone-conductor",
+    "defaultPrompt": [
+      "Show my Backbone task and the decisions that affect it.",
+      "Record this change as a draft intent before coding.",
+      "Check my task against new decisions before I submit."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

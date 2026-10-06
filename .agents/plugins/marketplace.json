@@ -1,0 +1,20 @@
+{
+  "name": "outerarc-ai",
+  "interface": {
+    "displayName": "OuterArc AI"
+  },
+  "plugins": [
+    {
+      "name": "backbone-conductor",
+      "source": {
+        "source": "local",
+        "path": "./plugins/backbone-conductor"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

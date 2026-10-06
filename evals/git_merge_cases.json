@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "label": "git_merge_tree_textual_conflict",
+  "sampling": "Four purposively selected historical two-parent merges from two public repositories; includes one clean same-path merge. Not a representative sample of project or agent-intent conflicts.",
+  "cases": [
+    {
+      "id": "jsoup-pom-conflict",
+      "upstream": "jhy/jsoup",
+      "merge_commit": "dd8e832191e78a417a03c88512b1d7eeb7f486d4",
+      "parents": [
+        "2d1e46968161baf8b06079f4e7aa4344f2ffd17f",
+        "db2d5aa85352fe63531540ef396b944e2fe58e2c"
+      ],
+      "source_url": "https://github.com/jhy/jsoup/commit/dd8e832191e78a417a03c88512b1d7eeb7f486d4",
+      "left_paths": [
+        "CHANGES",
+        "LICENSE",
+        "pom.xml",
+        "src/main/java/org/jsoup/Connection.java",
+        "src/main/java/org/jsoup/HttpStatusException.java",
+        "src/main/java/org/jsoup/Jsoup.java",
+        "src/main/java/org/jsoup/UnsupportedMimeTypeException.java",
+        "src/main/java/org/jsoup/helper/DataUtil.java",
+        "src/main/java/org/jsoup/helper/HttpConnection.java",
+        "src/main/java/org/jsoup/helper/StringUtil.java",
+        "src/main/java/org/jsoup/nodes/Document.java",
+        "src/main/java/org/jsoup/nodes/DocumentType.java",
+        "src/main/java/org/jsoup/nodes/Element.java",
+        "src/main/java/org/jsoup/nodes/Entities.java",
+        "src/main/java/org/jsoup/nodes/Node.java",
+        "src/main/java/org/jsoup/nodes/TextNode.java",
+        "src/main/java/org/jsoup/parser/HtmlTreeBuilder.java",
+        "src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java",
+        "src/main/java/org/jsoup/parser/Parser.java",
+        "src/main/java/org/jsoup/parser/Tag.java",
+        "src/main/java/org/jsoup/parser/Token.java",
+        "src/main/java/org/jsoup/parser/Tokeniser.java",
+        "src/main/java/org/jsoup/parser/TokeniserState.java",
+        "src/main/java/org/jsoup/parser/XmlTreeBuilder.java",
+        "src/main/java/org/jsoup/safety/Cleaner.java",
+        "src/main/java/org/jsoup/safety/Whitelist.java",
+        "src/main/java/org/jsoup/select/Elements.java",
+        "src/main/java/org/jsoup/select/NodeTraversor.java",
+        "src/main/java/org/jsoup/select/Selector.java",
+        "src/test/java/org/jsoup/helper/DataUtilTest.java",
+        "src/test/java/org/jsoup/helper/StringUtilTest.java",
+        "src/test/java/org/jsoup/integration/ParseTest.java",
+        "src/test/java/org/jsoup/integration/UrlConnectTest.java",
+        "src/test/java/org/jsoup/nodes/AttributeTest.java",
+        "src/test/java/org/jsoup/nodes/DocumentTest.java",
+        "src/test/java/org/jsoup/nodes/ElementTest.java",
+        "src/test/java/org/jsoup/nodes/EntitiesTest.java",
+        "src/test/java/org/jsoup/nodes/NodeTest.java",
+        "src/test/java/org/jsoup/nodes/TextNodeTest.java",
+        "src/test/java/org/jsoup/parser/AttributeParseTest.java",
+        "src/test/java/org/jsoup/parser/HtmlParserTest.java",
+        "src/test/java/org/jsoup/parser/XmlTreeBuilderTest.java",
+        "src/test/java/org/jsoup/safety/CleanerTest.java",
+        "src/test/java/org/jsoup/select/ElementsTest.java",
+        "src/test/java/org/jsoup/select/SelectorTest.java"
+      ],
+      "right_paths": [
+        "pom.xml",
+        "src/main/java/org/jsoup/select/Evaluator.java",
+        "src/main/java/org/jsoup/select/QueryParser.java",
+        "src/test/java/org/jsoup/select/CssTest.java"
+      ],
+      "textual_conflict": true,
+      "label_note": "Actual textual conflict in pom.xml."
+    },
+    {
+      "id": "jsoup-shared-path-clean",
+      "upstream": "jhy/jsoup",
+      "merge_commit": "a44e18aa3c1fcd25a68a5965f9490d8f7d026509",
+      "parents": [
+        "38e20f43502027b897135e94e9119ae9341254ac",
+        "e064bc4842d1412a0421435332f55908fddcc866"
+      ],
+      "source_url": "https://github.com/jhy/jsoup/commit/a44e18aa3c1fcd25a68a5965f9490d8f7d026509",
+      "left_paths": [
+        "CHANGES",
+        "LICENSE",
+        "src/main/java/org/jsoup/nodes/Element.java",
+        "src/main/java/org/jsoup/nodes/Node.java",
+        "src/main/java/org/jsoup/nodes/TextNode.java",
+        "src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java",
+        "src/main/java/org/jsoup/parser/Parser.java",
+        "src/main/java/org/jsoup/parser/Tag.java",
+        "src/main/java/org/jsoup/parser/XmlTreeBuilder.java",
+        "src/main/java/org/jsoup/select/Elements.java",
+        "src/main/java/org/jsoup/select/NodeTraversor.java",
+        "src/test/java/org/jsoup/nodes/ElementTest.java",
+        "src/test/java/org/jsoup/nodes/NodeTest.java",
+        "src/test/java/org/jsoup/parser/HtmlParserTest.java",
+        "src/test/java/org/jsoup/parser/XmlTreeBuilderTest.java",
+        "src/test/java/org/jsoup/safety/CleanerTest.java"
+      ],
+      "right_paths": [
+        "src/main/java/org/jsoup/nodes/Document.java",
+        "src/main/java/org/jsoup/nodes/Element.java",
+        "src/main/java/org/jsoup/nodes/TextNode.java",
+        "src/test/java/org/jsoup/nodes/ElementTest.java"
+      ],
+      "textual_conflict": false,
+      "label_note": "Both branches changed files including Element.java, but Git merged cleanly."
+    },
+    {
+      "id": "jsoup-disjoint-clean",
+      "upstream": "jhy/jsoup",
+      "merge_commit": "38e20f43502027b897135e94e9119ae9341254ac",
+      "parents": [
+        "3ddc54695c77eca94646d6ecb13ae45897a59052",
+        "615f53010b21d1c0946952e33773b885fe30440b"
+      ],
+      "source_url": "https://github.com/jhy/jsoup/commit/38e20f43502027b897135e94e9119ae9341254ac",
+      "left_paths": [
+        "CHANGES",
+        "LICENSE",
+        "src/main/java/org/jsoup/Connection.java",
+        "src/main/java/org/jsoup/helper/DataUtil.java",
+        "src/main/java/org/jsoup/helper/HttpConnection.java",
+        "src/main/java/org/jsoup/nodes/Element.java",
+        "src/main/java/org/jsoup/nodes/Node.java",
+        "src/main/java/org/jsoup/nodes/TextNode.java",
+        "src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java",
+        "src/main/java/org/jsoup/parser/Parser.java",
+        "src/main/java/org/jsoup/parser/TokeniserState.java",
+        "src/main/java/org/jsoup/parser/XmlTreeBuilder.java",
+        "src/main/java/org/jsoup/select/Elements.java",
+        "src/main/java/org/jsoup/select/NodeTraversor.java",
+        "src/test/java/org/jsoup/integration/UrlConnectTest.java",
+        "src/test/java/org/jsoup/nodes/ElementTest.java",
+        "src/test/java/org/jsoup/nodes/NodeTest.java",
+        "src/test/java/org/jsoup/parser/HtmlParserTest.java",
+        "src/test/java/org/jsoup/parser/XmlTreeBuilderTest.java",
+        "src/test/java/org/jsoup/safety/CleanerTest.java"
+      ],
+      "right_paths": [
+        "src/main/java/org/jsoup/parser/Tag.java"
+      ],
+      "textual_conflict": false,
+      "label_note": "Branches changed disjoint paths and Git merged cleanly."
+    },
+    {
+      "id": "amaze-main-activity-conflict",
+      "upstream": "TeamAmaze/AmazeFileManager",
+      "merge_commit": "4ee2cdaf5fea7badeab009d4f1dc6ce276c60dbe",
+      "parents": [
+        "25e6f003e08a9482b8d3262eaa3af83ca26e905b",
+        "c8ea054f961561a9c08c29e89a0170fdf05b6628"
+      ],
+      "source_url": "https://github.com/TeamAmaze/AmazeFileManager/commit/4ee2cdaf5fea7badeab009d4f1dc6ce276c60dbe",
+      "left_paths": [
+        "src/main/java/com/amaze/filemanager/adapters/DrawerAdapter.java",
+        "src/main/java/com/amaze/filemanager/filesystem/HFile.java",
+        "src/main/java/com/amaze/filemanager/filesystem/RootHelper.java",
+        "src/main/java/com/amaze/filemanager/fragments/Main.java",
+        "src/main/java/com/amaze/filemanager/fragments/TabFragment.java",
+        "src/main/java/com/amaze/filemanager/services/CopyService.java",
+        "src/main/java/com/amaze/filemanager/services/DeleteTask.java",
+        "src/main/java/com/amaze/filemanager/services/asynctasks/LoadList.java",
+        "src/main/java/com/amaze/filemanager/utils/Futils.java",
+        "src/main/java/com/amaze/filemanager/utils/GenericCopyThread.java",
+        "src/main/java/com/amaze/filemanager/utils/MainActivityHelper.java",
+        "src/main/res/drawable-hdpi/ic_usb_white_48dp.png",
+        "src/main/res/drawable-mdpi/ic_usb_white_48dp.png",
+        "src/main/res/drawable-xhdpi/ic_usb_white_48dp.png",
+        "src/main/res/drawable-xxhdpi/ic_usb_white_48dp.png",
+        "src/main/res/drawable-xxxhdpi/ic_usb_white_48dp.png",
+        "src/main/res/values/strings.xml",
+        "src/play/java/com/amaze/filemanager/activities/MainActivity.java"
+      ],
+      "right_paths": [
+        "src/main/java/com/amaze/filemanager/fragments/FTPServerFragment.java",
+        "src/main/java/com/amaze/filemanager/services/ftpservice/FTPService.java",
+        "src/main/res/menu/activity_extra.xml",
+        "src/main/res/menu/ftp_server_menu.xml",
+        "src/main/res/values/strings.xml",
+        "src/main/res/xml/preferences.xml",
+        "src/play/java/com/amaze/filemanager/activities/MainActivity.java"
+      ],
+      "textual_conflict": true,
+      "label_note": "Actual textual conflict in MainActivity.java."
+    }
+  ]
+}

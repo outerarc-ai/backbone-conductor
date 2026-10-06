@@ -1,0 +1,52 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.1'
+          python-version: ${{ matrix.python }}
+      - run: uv sync --locked --group dev
+      - run: uv run --no-sync ruff check .
+      - run: uv run --no-sync ruff format --check .
+      - run: BACKBONE_REQUIRE_LIVE_HTTP=1 uv run --no-sync pytest --cov=backbone_conductor --cov-fail-under=85 --cov-report=term-missing
+      - run: uv run --no-sync python scripts/evaluate.py
+      - run: uv run --no-sync python scripts/evaluate_git_merges.py
+      - run: uv run --no-sync python scripts/benchmark_mcp.py --clients 10
+      - run: uv run --no-sync python scripts/benchmark_sync.py --runs 3
+      - run: uv run --no-sync python scripts/benchmark_audit_history.py --updates 12 --page-size 5
+      - run: uv run --no-sync python examples/demo.py
+      - run: uv run --no-sync python examples/two_agent_demo.py
+      - run: uv run --no-sync python examples/two_agent_demo.py --mcp
+      - run: uv build
+      - run: uv run --no-sync python scripts/check_release.py
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.1'
+          python-version: '3.12'
+      - run: uv sync --locked --group dev
+      - run: uv run --no-sync python scripts/verify_compose.py
+  dsh-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.1'
+          python-version: '3.12'
+      - run: uv sync --locked --group dev --extra dsh
+      - run: BACKBONE_REQUIRE_DSH_MCP=1 BACKBONE_REQUIRE_LIVE_HTTP=1 PYTHONPATH=src uv run --no-sync pytest tests/test_runtime.py::test_installed_sdk_starts_read_only_review_without_shell tests/test_runtime.py::test_installed_sdk_conflict_advice_with_local_mock_provider tests/test_prospective_eval.py::test_installed_sdk_freezes_semantic_study_with_local_mock_provider tests/test_runtime.py::test_installed_sdk_starts_member_mcp_without_model_call tests/test_runtime.py::test_installed_sdk_member_tools_and_in_process_history_with_local_mock_provider tests/test_runtime.py::test_installed_sdk_starts_coordinator_mcp_without_model_call tests/test_mcp_http.py::test_remote_dsh_member_preflight_sdk_and_mock_tool_call tests/test_tls_http.py::test_direct_https_requires_trusted_certificate_and_bearer_token -q

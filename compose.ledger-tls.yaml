@@ -1,0 +1,18 @@
+services:
+  conductor:
+    command:
+      - --repo
+      - /workspace
+      - --ledger-branch
+      - backbone
+      - serve
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --auth-file
+      - /run/secrets/backbone-http-tokens.json
+      - --tls-certfile
+      - /run/tls/server.crt
+      - --tls-keyfile
+      - /run/tls/server.key

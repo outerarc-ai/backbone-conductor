@@ -1,0 +1,5 @@
+services:
+  conductor:
+    environment:
+      BACKBONE_MCP_HTTP: "1"
+      BACKBONE_MCP_ALLOWED_HOSTS: "${BACKBONE_MCP_ALLOWED_HOSTS:-}"

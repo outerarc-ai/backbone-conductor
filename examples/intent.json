@@ -1,0 +1,10 @@
+{
+  "id": "intent-greeting",
+  "author": "owner",
+  "problem": "The package cannot greet users",
+  "proposed_outcome": "Implement hello(name) without external dependencies",
+  "affected_symbols": ["hello"],
+  "operations": {"hello": "add"},
+  "affected_paths": ["greeting.py"],
+  "constraints": ["No external dependencies"]
+}

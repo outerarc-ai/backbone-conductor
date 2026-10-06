@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+coverage.xml
+dist/
+*.egg-info/
+.DS_Store
+.env
+.env.*
+!.env.example
+.dsh/
+backbone.db*

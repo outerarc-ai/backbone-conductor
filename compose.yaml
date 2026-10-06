@@ -1,0 +1,11 @@
+services:
+  conductor:
+    build: .
+    user: "${BACKBONE_UID:-0}:${BACKBONE_GID:-0}"
+    ports:
+      - "127.0.0.1:${BACKBONE_PORT:-8000}:8000"
+    volumes:
+      - "${BACKBONE_REPO:?Set BACKBONE_REPO to an initialized Git repository}:/workspace"
+      - "${BACKBONE_AUTH_DIR:?Set BACKBONE_AUTH_DIR to a dedicated private credential directory}:/run/secrets:ro"
+    init: true
+    restart: unless-stopped

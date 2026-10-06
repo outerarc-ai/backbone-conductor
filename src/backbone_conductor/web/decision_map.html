@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>决策脉络图 · Backbone Conductor</title>
+    <link rel="stylesheet" href="/decision-map.css">
+    <script defer src="/decision-map.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="masthead">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <div>
+            <p class="eyebrow">Backbone Conductor</p>
+            <h1>决策脉络图</h1>
+          </div>
+        </div>
+        <div class="header-meta">
+          <a class="button button-secondary map-switch" href="/lifecycle-map">工作脉络图 →</a>
+          <span class="read-only">只读视图</span>
+          <span id="version" class="version" title="当前账本版本">版本 ···</span>
+          <button id="refresh" class="button button-secondary" type="button">刷新</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="index-panel" aria-label="决策筛选与列表">
+          <div class="panel-heading">
+            <p class="eyebrow">索引</p>
+            <h2>全部决策 <span id="decision-count">0</span></h2>
+          </div>
+          <label class="field-label" for="search">搜索摘要、ID 或作者</label>
+          <input id="search" class="text-input" type="search" placeholder="输入关键词" autocomplete="off">
+          <label class="field-label" for="status-filter">状态</label>
+          <select id="status-filter" class="text-input">
+            <option value="all">全部状态</option>
+            <option value="accepted">已接受</option>
+            <option value="proposed">待审查</option>
+            <option value="superseded">已替代</option>
+            <option value="reverted">已撤回</option>
+          </select>
+          <div class="legend" aria-label="连线图例"><span class="legend-line"></span> 实线表示替代关系</div>
+          <div id="decision-list" class="decision-list" aria-label="决策列表"></div>
+        </aside>
+
+        <section class="map-panel" aria-label="决策关系画布">
+          <div class="map-toolbar">
+            <div>
+              <p class="eyebrow">关系视图</p>
+              <p class="map-subtitle">拖动画布浏览 · 拖动卡片调整个人布局</p>
+            </div>
+            <div class="map-controls" aria-label="画布控制">
+              <button id="fit" class="button button-secondary" type="button">适应画布</button>
+              <button id="reset-layout" class="button button-secondary" type="button">重置布局</button>
+              <button id="zoom-out" class="button button-icon" type="button" aria-label="缩小">−</button>
+              <span id="zoom-label" class="zoom-label">100%</span>
+              <button id="zoom-in" class="button button-icon" type="button" aria-label="放大">+</button>
+            </div>
+          </div>
+          <div id="viewport" class="viewport" tabindex="0" aria-label="决策关系图，可拖动画布">
+            <div id="world" class="world">
+              <svg id="edges" class="edges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+              <div id="nodes" class="nodes"></div>
+            </div>
+            <div id="empty-state" class="canvas-message" hidden>
+              <span class="empty-glyph" aria-hidden="true">◇</span>
+              <strong>没有匹配的决策</strong>
+              <p>创建决策后，这里会显示它与前序决策的关系。</p>
+            </div>
+            <form id="auth-panel" class="auth-panel" hidden>
+              <p class="eyebrow">安全连接</p>
+              <h2>输入成员、审查者或管理员令牌</h2>
+              <p>令牌只保存在当前页面内存中，不写入 URL 或浏览器存储。</p>
+              <label class="field-label" for="bearer-token">Bearer token</label>
+              <input id="bearer-token" class="text-input" type="password" autocomplete="off" required>
+              <button class="button button-primary" type="submit">读取决策</button>
+            </form>
+          </div>
+          <div class="map-footer"><span id="status-line" role="status" aria-live="polite">正在读取决策…</span><span>关系来自 Git 账本 · 布局仅保存在此浏览器</span></div>
+        </section>
+
+        <aside class="detail-panel" aria-label="决策详情">
+          <div class="panel-heading">
+            <p class="eyebrow">证据</p>
+            <h2>决策详情</h2>
+          </div>
+          <div id="detail" class="detail-content" aria-live="polite">
+            <p class="detail-placeholder">选择一项决策，查看理由、关联意图和撤回记录。</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

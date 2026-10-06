@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "backbone-conductor"
+version = "0.1.0"
+description = "Git-native intent and decision coordination for coding agents"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic>=2.10,<3",
+  "filelock>=3.32.7,<4",
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.34,<1",
+  "mcp>=1.12,<2",
+  "httpx>=0.28,<1",
+]
+
+[project.optional-dependencies]
+dsh = ["deepseek-harness-sdk>=0.1,<1"]
+
+[project.scripts]
+backbone = "backbone_conductor.cli:main"
+
+[project.urls]
+Repository = "https://github.com/outerarc-ai/backbone-conductor"
+Documentation = "https://github.com/outerarc-ai/backbone-conductor/tree/main/docs"
+Issues = "https://github.com/outerarc-ai/backbone-conductor/issues"
+
+[dependency-groups]
+dev = ["pytest>=8.3,<10", "pytest-cov>=6,<8", "httpx>=0.28,<1", "ruff>=0.11,<1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/backbone_conductor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

@@ -1,0 +1,6 @@
+{
+  "intent_id": "intent-greeting",
+  "branch": "feature/greeting",
+  "base_ref": "main",
+  "summary": "Implemented hello(name)"
+}

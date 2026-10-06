@@ -1,0 +1,54 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Build and verify without uploading to PyPI
+        required: true
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.1'
+          python-version: '3.12'
+      - run: uv sync --locked --group dev
+      - name: Require a version tag for a real release
+        if: ${{ inputs.dry_run == false && github.ref_type != 'tag' }}
+        run: |
+          echo 'A PyPI release must be dispatched from a version tag.' >&2
+          exit 1
+      - run: uv run --no-sync ruff check .
+      - run: uv run --no-sync ruff format --check .
+      - run: BACKBONE_REQUIRE_LIVE_HTTP=1 uv run --no-sync pytest --cov=backbone_conductor --cov-fail-under=85
+      - run: uv run --no-sync python scripts/evaluate.py
+      - run: uv run --no-sync python examples/demo.py
+      - run: uv build
+      - name: Verify release archives
+        env:
+          RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+        run: uv run --no-sync python scripts/check_release.py --tag "$RELEASE_TAG"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-distributions
+          path: dist/*
+          if-no-files-found: error
+  publish:
+    needs: build
+    if: ${{ inputs.dry_run == false && github.ref_type == 'tag' }}
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: python-distributions
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,0 +1,9 @@
+.git
+.venv
+.backbone
+.pytest_cache
+.ruff_cache
+.coverage
+dist
+__pycache__
+.env*
