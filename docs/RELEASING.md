@@ -31,3 +31,5 @@ The [PyPI Trusted Publishing guide](https://docs.pypi.org/trusted-publishers/) e
 5. Create a GitHub Release from the same tag, using the corresponding `CHANGELOG.md` entry. Verify the PyPI page and installation in a fresh environment with `python -m pip install backbone-conductor==X.Y.Z` and `backbone --help`.
 
 PyPI versions are immutable. Do not reuse a published version or move a published tag. The release workflow grants `id-token: write` only to the publishing job and rejects upload requests started from a branch.
+
+Check `requires-python` and the tested Python version classifiers in `pyproject.toml` before tagging. The specifier controls installer compatibility; classifiers describe the versions shown in package listings and version badges. PyPI keeps the metadata uploaded with a release, so a metadata correction requires a new version. GitHub README badges may briefly show cached data after a new upload; verify the [PyPI project page](https://pypi.org/project/backbone-conductor/) and a fresh installation before treating a badge as release evidence.
